@@ -1,0 +1,49 @@
+{
+  "name": "consent-manager",
+  "description": "Comprehensive, flexible, accessible and privacy friendly cookie consent management solution for every project.",
+  "version": "1.0.0",
+  "author": "Felix Wotschofsky <hello@felisk.io>",
+  "license": "AGPL-3.0-only",
+  "main": "dist/main/index.js",
+  "types": "dist/main/index.d.ts",
+  "module": "dist/module/index.js",
+  "files": [
+    "dist/",
+    "!**/*.tsbuildinfo",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feliskio/consent-manager.git"
+  },
+  "homepage": "https://github.com/feliskio/consent-manager#readme",
+  "bugs": {
+    "url": "https://github.com/feliskio/consent-manager/issues"
+  },
+  "keywords": [
+    "cookies",
+    "cookie consent",
+    "consent management",
+    "modular",
+    "self hosted"
+  ],
+  "scripts": {
+    "build": "run-p build:*",
+    "build:main": "tsc -p tsconfig.json",
+    "build:module": "tsc -p tsconfig.module.json",
+    "build:bundle": "esbuild src/bundle.ts --bundle --sourcemap --platform=browser --outfile=dist/consent-manager.js",
+    "build:bundle-min": "esbuild src/index.ts --bundle --sourcemap --platform=browser --minify --outfile=dist/consent-manager.min.js",
+    "dev": "run-p dev:*",
+    "dev:main": "tsc -p tsconfig.json -w",
+    "dev:module": "tsc -p tsconfig.module.json -w",
+    "dev:bundle": "esbuild src/bundle.ts --bundle --sourcemap=inline --platform=browser --outfile=dist/consent-manager.js --watch",
+    "dev:bundle-min": "esbuild src/index.ts --bundle --sourcemap=inline --platform=browser --minify --outfile=dist/consent-manager.min.js --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.13.13",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.4.4"
+  }
+}
