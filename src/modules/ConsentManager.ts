@@ -50,9 +50,9 @@ const CookieJson = Cookie.withConverter({
 });
 
 export default class ConsentManager {
-  isCustomized = false;
-  grants: GrantsStatus;
-  eventListeners: Record<string, UpdateEventCallback[]> = {};
+  public isCustomized = false;
+  public grants: GrantsStatus;
+  private eventListeners: Record<string, UpdateEventCallback[]> = {};
 
   constructor(public config: ConsentManagerConfig) {
     // Load default if necessary
