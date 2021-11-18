@@ -1,0 +1,118 @@
+.consent-manager--banner-wrapper {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+  border-radius: 0.25rem;
+
+  padding: 0.5rem 1rem;
+  display: flex;
+}
+
+.consent-manager--banner-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.consent-manager--banner-actions {
+  margin-left: 1rem;
+}
+
+.consent-manager--banner-accept,
+.consent-manager--banner-reject,
+.consent-manager--banner-more {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.15rem;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-bottom: 0.25rem;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.consent-manager--banner-accept {
+  border: 2px solid #777777;
+}
+
+.consent-manager--table-toggle {
+  margin: 1rem;
+  margin-left: 0;
+}
+
+.consent-manager--table-label,
+.consent-manager--table-description {
+  display: block;
+}
+
+.consent-manager--table-label {
+  font-weight: bold;
+}
+
+.consent-manager--modal-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.consent-manager--modal-container {
+  background-color: #fff;
+  width: 80%;
+  max-width: 40rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.consent-manager--modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.consent-manager--modal-title {
+  display: inline-block;
+  margin: 0;
+}
+
+.consent-manager--modal-close {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.consent-manager--modal-actions {
+  margin-top: 1.5rem;
+}
+
+.consent-manager--modal-accept,
+.consent-manager--modal-reject {
+  border: none;
+  background: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.15rem;
+  cursor: pointer;
+
+  &:not(:last-of-type) {
+    margin-right: 0.25rem;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}

@@ -34,11 +34,15 @@
     "build:module": "tsc -p tsconfig.module.json",
     "build:bundle": "esbuild src/bundle.ts --bundle --sourcemap --platform=browser --outfile=dist/consent-manager.js",
     "build:bundle-min": "esbuild src/index.ts --bundle --sourcemap --platform=browser --minify --outfile=dist/consent-manager.min.js",
+    "build:styles": "sass src/styles.scss:dist/consent-manager.css",
+    "build:styles-min": "sass src/styles.scss:dist/consent-manager.min.css --style compressed",
     "dev": "run-p dev:*",
     "dev:main": "tsc -p tsconfig.json -w",
     "dev:module": "tsc -p tsconfig.module.json -w",
     "dev:bundle": "esbuild src/bundle.ts --bundle --sourcemap=inline --platform=browser --outfile=dist/consent-manager.js --watch",
-    "dev:bundle-min": "esbuild src/index.ts --bundle --sourcemap=inline --platform=browser --minify --outfile=dist/consent-manager.min.js --watch"
+    "dev:bundle-min": "esbuild src/index.ts --bundle --sourcemap=inline --platform=browser --minify --outfile=dist/consent-manager.min.js --watch",
+    "dev:styles": "sass src/styles.scss:dist/consent-manager.css --watch",
+    "dev:styles-min": "sass src/styles.scss:dist/consent-manager.min.css --style compressed --watch"
   },
   "dependencies": {
     "ajv": "^8.8.0",
@@ -48,6 +52,7 @@
     "@types/js-cookie": "^3.0.0",
     "esbuild": "^0.13.13",
     "npm-run-all": "^4.1.5",
+    "sass": "^1.43.4",
     "typescript": "^4.4.4"
   }
 }
