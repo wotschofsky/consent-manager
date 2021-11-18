@@ -73,7 +73,7 @@ export default class GrantsInterface {
     }
   }
 
-  public generateConsentTable(autoUpdate = true): HTMLTableElement {
+  public generateConsentTable(autoUpdate = false): HTMLTableElement {
     const table = document.createElement('table');
     table.className = 'consent-manager--table';
 
@@ -143,7 +143,7 @@ export default class GrantsInterface {
     header.className = 'consent-manager--modal-header';
     header.append(title, closeButton);
 
-    const table = this.generateConsentTable();
+    const table = this.generateConsentTable(true);
 
     const acceptAllButton = document.createElement('button');
     acceptAllButton.className = 'consent-manager--modal-accept';
