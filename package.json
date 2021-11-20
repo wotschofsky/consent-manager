@@ -1,7 +1,7 @@
 {
   "name": "consent-manager",
   "description": "Comprehensive, flexible, accessible and privacy friendly cookie consent management solution for every project.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Felix Wotschofsky <hello@felisk.io>",
   "license": "AGPL-3.0-only",
   "main": "dist/main/index.js",
