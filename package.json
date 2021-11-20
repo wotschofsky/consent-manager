@@ -45,7 +45,7 @@
     "dev:styles-min": "sass src/styles.scss:dist/consent-manager.min.css --style compressed --watch"
   },
   "dependencies": {
-    "ajv": "^8.8.0",
+    "@cfworker/json-schema": "^1.10.2",
     "js-cookie": "^3.0.1"
   },
   "devDependencies": {

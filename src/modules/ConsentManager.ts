@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import { Validator } from '@cfworker/json-schema';
 import Cookie from 'js-cookie';
 
 export interface ConsentManagerConfig {
@@ -24,7 +24,7 @@ interface CookieData {
 type UpdateEventCallback = (id: string) => void;
 
 // Prepare validation of cookie data
-const cookieSchema = {
+const cookieValidator = new Validator({
   type: 'object',
   properties: {
     version: {
@@ -39,9 +39,7 @@ const cookieSchema = {
   },
   required: ['version', 'grants'],
   additionalProperties: false,
-};
-const ajv = new Ajv();
-const validateCookie = ajv.compile(cookieSchema);
+});
 
 // Setup instance of js-cookie for JSON
 const CookieJson = Cookie.withConverter({
@@ -75,7 +73,7 @@ export default class ConsentManager {
       grants[category.id] = value;
     }
 
-    if (cookieValue && validateCookie(cookieValue)) {
+    if (cookieValue && cookieValidator.validate(cookieValue).valid) {
       // Set customized status current version up-to-date cookie was found
       if (cookieValue.version === this.config.version) {
         this.isCustomized = true;
