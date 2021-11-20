@@ -12,6 +12,18 @@
   resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-3.0.0.tgz#6dcc3ab167251ace6964310789d8ea80f732a82c"
   integrity sha512-GDVwSzwBm4OdQajFCit2UMxskZVcOhs/hYeOvzVW1R+iW6ZOVIBgD+RSrYCtPT0pNBnwNgRaoPPKfoXcwDo+hg==
 
+"@types/lodash.defaults@^4.2.6":
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.defaults/-/lodash.defaults-4.2.6.tgz#4ac29d3dd80a42803397076600f5b129f4aef911"
+  integrity sha512-JsUJheQIG2Yf/n/QRUMGXT76/7x4tLU5i0kxIPeoOcTIh9yNzdEzCHWbwD8mTf+VncGwYZiho+F2u1pEBsGswA==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.177"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.177.tgz#f70c0d19c30fab101cad46b52be60363c43c4578"
+  integrity sha512-0fDwydE2clKe9MNfvXHBHF9WEahRuj+msTuQqOmAApNORFvhMYZKNGGJdCzuhheVjMps/ti0Ak/iJPACMaevvw==
+
 ansi-styles@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
@@ -496,6 +508,11 @@ load-json-file@^4.0.0:
     parse-json "^4.0.0"
     pify "^3.0.0"
     strip-bom "^3.0.0"
+
+lodash.defaults@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
+  integrity sha1-0JF4cW/+pN3p5ft7N/bwgCJ0WAw=
 
 memorystream@^0.3.1:
   version "0.3.1"

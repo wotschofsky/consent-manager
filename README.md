@@ -229,12 +229,14 @@ You already get the entire functionality just by creating a GrantsInterface obje
 import { GrantsInterface } from 'consent-manager';
 import 'consent-manager/dist/consent-manager.css';
 
-const gi = new GrantsInterface(consentManager);
+new GrantsInterface(consentManager);
 ```
 
-Additionally you can control these features manually using the following methods:
+If you want more control over the behavior of the UI elements you can disable them being shown automatically and use the following methods to control them manually instead:
 
 ```javascript
+const gi = new GrantsInterface(consentManager, { autoShow: false });
+
 // Show cookie banner
 gi.showBanner();
 

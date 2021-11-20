@@ -1,8 +1,18 @@
+import defaults from 'lodash.defaults';
+
 import type ConsentManager from './ConsentManager';
 
+interface GrantsInterfaceConfig {
+  autoShow: boolean;
+}
+
 export default class GrantsInterface {
-  constructor(private client: ConsentManager) {
-    if (!client.isCustomized) {
+  private config: GrantsInterfaceConfig;
+
+  constructor(private client: ConsentManager, config: GrantsInterfaceConfig) {
+    this.config = defaults(config, { autoShow: true });
+
+    if (this.config.autoShow && !client.isCustomized) {
       this.showBanner();
     }
   }
