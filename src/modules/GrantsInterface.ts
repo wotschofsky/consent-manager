@@ -1,4 +1,4 @@
-import defaults from 'lodash.defaults';
+import merge from 'deepmerge';
 
 import type ConsentManager from './ConsentManager';
 
@@ -10,7 +10,7 @@ export default class GrantsInterface {
   private config: GrantsInterfaceConfig;
 
   constructor(private client: ConsentManager, config: GrantsInterfaceConfig) {
-    this.config = defaults(config, { autoShow: true });
+    this.config = merge({ autoShow: true }, config ?? {});
 
     if (this.config.autoShow && !client.isCustomized) {
       this.showBanner();
