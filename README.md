@@ -22,6 +22,12 @@ Alternatively you can also import the script found in the releases section on Gi
 <script src="consent-manager.min.js"></script>
 ```
 
+Or include through a public CDN:
+
+```html
+<script src="https://unpkg.com/consent-manager@1/dist/consent-manager.min.js"></script>
+```
+
 ## Core
 
 First create a new ConsentManager object by passing a config:
@@ -230,6 +236,12 @@ import { GrantsInterface } from 'consent-manager';
 import 'consent-manager/dist/consent-manager.css';
 
 new GrantsInterface(consentManager);
+```
+
+Include the stylesheet through a public CDN:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/consent-manager@1/dist/consent-manager.min.css">
 ```
 
 If you want more control over the behavior of the UI elements you can disable them being shown automatically and use the following methods to control them manually instead:
