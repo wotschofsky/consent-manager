@@ -40,7 +40,7 @@ const consentManager = new ConsentManager({
   cookieName: 'consent-manager',
 
   // How long until cookie containing preferences expires
-  // number (days) or Date object - optional - defaults to end of session
+  // number (days) or Date object - optional - defaults to 365 days
   expires: 365,
 
   // Array of all toggleable categories by which cookies will be sorted; adjust to according to your needs

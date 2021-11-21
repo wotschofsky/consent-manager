@@ -1,27 +1,6 @@
 import { Validator } from '@cfworker/json-schema';
 import Cookie from 'js-cookie';
-
-export interface ConsentManagerConfig {
-  version: string;
-  cookieName?: string;
-  expires?: number | Date;
-  categories: {
-    id: string;
-    label: string;
-    description: string;
-    required: boolean;
-    default?: boolean;
-  }[];
-}
-
-type GrantsStatus = Record<string, boolean>;
-
-interface CookieData {
-  version: string;
-  grants: GrantsStatus;
-}
-
-type UpdateEventCallback = (id: string) => void;
+import merge from 'deepmerge';
 
 // Prepare validation of cookie data
 const cookieValidator = new Validator({
@@ -47,14 +26,43 @@ const CookieJson = Cookie.withConverter({
   write: (value) => JSON.stringify(value),
 });
 
+type GrantsStatus = Record<string, boolean>;
+
+interface CookieData {
+  version: string;
+  grants: GrantsStatus;
+}
+
+type UpdateEventCallback = (id: string) => void;
+
+export interface ConsentManagerConfig {
+  version: string;
+  cookieName?: string;
+  expires?: number | Date;
+  categories: {
+    id: string;
+    label: string;
+    description: string;
+    required: boolean;
+    default?: boolean;
+  }[];
+}
+
+const defaultConfig: ConsentManagerConfig = {
+  version: '1',
+  cookieName: 'consent-manager',
+  expires: 365,
+  categories: [],
+};
+
 export default class ConsentManager {
+  public config: ConsentManagerConfig;
   public isCustomized = false;
   public grants: GrantsStatus;
   private eventListeners: Record<string, UpdateEventCallback[]> = {};
 
-  constructor(public config: ConsentManagerConfig) {
-    // Load default if necessary
-    this.config.cookieName = this.config.cookieName ?? 'consent-manager';
+  constructor(config: ConsentManagerConfig) {
+    this.config = merge(defaultConfig, config);
 
     this.parseCookie();
   }
