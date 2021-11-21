@@ -38,7 +38,7 @@ type UpdateEventCallback = (id: string) => void;
 export interface ConsentManagerConfig {
   version: string;
   cookieName?: string;
-  expires?: number | Date;
+  expires?: number | Date | 'session';
   categories: {
     id: string;
     label: string;
@@ -107,7 +107,7 @@ export default class ConsentManager {
       grants: this.grants,
     };
     CookieJson.set(this.config.cookieName, cookieData, {
-      expires: this.config.expires,
+      expires: this.config.expires !== 'session' ? this.config.expires : null,
     });
   }
 
