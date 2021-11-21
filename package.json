@@ -29,6 +29,7 @@
     "self hosted"
   ],
   "scripts": {
+    "prebuild": "rm -rf dist/",
     "build": "run-p build:*",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
@@ -36,6 +37,7 @@
     "build:bundle-min": "esbuild src/index.ts --bundle --sourcemap --platform=browser --minify --outfile=dist/consent-manager.min.js",
     "build:styles": "sass src/styles.scss:dist/consent-manager.css",
     "build:styles-min": "sass src/styles.scss:dist/consent-manager.min.css --style compressed",
+    "predev": "rm -rf dist/",
     "dev": "run-p dev:*",
     "dev:main": "tsc -p tsconfig.json -w",
     "dev:module": "tsc -p tsconfig.module.json -w",
