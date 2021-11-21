@@ -250,6 +250,26 @@ gi.showModal();
 gi.hideModal();
 ```
 
+Additionally you may want to customize the text values shown in interface. You can change as many or as few as you'd like and simply leave the others unspecified:
+
+```javascript
+new GrantsInterface(consentManager, {
+  languageStrings: {
+    banner: {
+      infoText: 'This website uses cookies to ensure you get the best experience on our website.',
+      accept: 'Accept All',
+      reject: 'Only required',
+      options: 'More options'
+    },
+    modal: {
+      title: 'Consent options',
+      accept: 'Accept All',
+      reject: 'Only required'
+    }
+  }
+});
+```
+
 If you want to use the consent table used in the modal you can generate one yourself using `generateConsentTable`:
 
 ```javascript

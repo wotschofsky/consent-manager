@@ -3,14 +3,45 @@ import merge from 'deepmerge';
 import type ConsentManager from './ConsentManager';
 
 interface GrantsInterfaceConfig {
-  autoShow: boolean;
+  autoShow?: boolean;
+  languageStrings?: {
+    banner?: {
+      infoText?: string;
+      accept?: string;
+      reject?: string;
+      options?: string;
+    };
+    modal?: {
+      title?: string;
+      accept?: string;
+      reject?: string;
+    };
+  };
 }
+
+const defaultConfig: GrantsInterfaceConfig = {
+  autoShow: true,
+  languageStrings: {
+    banner: {
+      infoText:
+        'This website uses cookies to ensure you get the best experience on our website.',
+      accept: 'Accept All',
+      reject: 'Only required',
+      options: 'More options',
+    },
+    modal: {
+      title: 'Consent options',
+      accept: 'Accept All',
+      reject: 'Only required',
+    },
+  },
+};
 
 export default class GrantsInterface {
   private config: GrantsInterfaceConfig;
 
-  constructor(private client: ConsentManager, config: GrantsInterfaceConfig) {
-    this.config = merge({ autoShow: true }, config ?? {});
+  constructor(private client: ConsentManager, config?: GrantsInterfaceConfig) {
+    this.config = merge(defaultConfig, config ?? {});
 
     if (this.config.autoShow && !client.isCustomized) {
       this.showBanner();
@@ -26,8 +57,7 @@ export default class GrantsInterface {
     }
 
     const infoText = document.createElement('span');
-    infoText.textContent =
-      'This website would like to use cookies to enhance the experience!';
+    infoText.textContent = this.config.languageStrings.banner.infoText;
 
     const infoSection = document.createElement('div');
     infoSection.className = 'consent-manager--banner-info';
@@ -35,21 +65,21 @@ export default class GrantsInterface {
 
     const acceptButton = document.createElement('button');
     acceptButton.className = 'consent-manager--banner-accept';
-    acceptButton.textContent = 'Accept all';
+    acceptButton.textContent = this.config.languageStrings.banner.accept;
     acceptButton.addEventListener('click', () =>
       this.client.setGrant('*', true)
     );
 
     const rejectButton = document.createElement('button');
     rejectButton.className = 'consent-manager--banner-reject';
-    rejectButton.textContent = 'Only required';
+    rejectButton.textContent = this.config.languageStrings.banner.reject;
     rejectButton.addEventListener('click', () =>
       this.client.setGrant('*', false)
     );
 
     const moreButton = document.createElement('button');
     moreButton.className = 'consent-manager--banner-more';
-    moreButton.textContent = 'More options';
+    moreButton.textContent = this.config.languageStrings.banner.options;
     moreButton.addEventListener(
       'click',
       () => {
@@ -140,7 +170,7 @@ export default class GrantsInterface {
 
     const title = document.createElement('h2');
     title.className = 'consent-manager--modal-title';
-    title.textContent = 'Consent Options';
+    title.textContent = this.config.languageStrings.modal.title;
 
     const closeButton = document.createElement('span');
     closeButton.className = 'consent-manager--modal-close';
@@ -157,14 +187,14 @@ export default class GrantsInterface {
 
     const acceptAllButton = document.createElement('button');
     acceptAllButton.className = 'consent-manager--modal-accept';
-    acceptAllButton.textContent = 'Accept all';
+    acceptAllButton.textContent = this.config.languageStrings.modal.accept;
     acceptAllButton.addEventListener('click', () =>
       this.client.setGrant('*', true)
     );
 
     const rejectAllButton = document.createElement('button');
     rejectAllButton.className = 'consent-manager--modal-reject';
-    rejectAllButton.textContent = 'Only required';
+    rejectAllButton.textContent = this.config.languageStrings.modal.reject;
     rejectAllButton.addEventListener('click', () =>
       this.client.setGrant('*', false)
     );
