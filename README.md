@@ -1,4 +1,4 @@
-[![npm](https://img.shields.io/npm/v/consent-manager)](https://www.npmjs.com/package/keycode-to-codes)
+[![npm](https://img.shields.io/npm/v/consent-manager)](https://www.npmjs.com/package/consent-manager)
 
 # consent-manager
 
