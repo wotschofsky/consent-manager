@@ -49,17 +49,17 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@cfworker/json-schema": "^1.10.2",
+    "@cfworker/json-schema": "^1.12.3",
     "deepmerge": "^4.2.2",
     "js-cookie": "^3.0.1"
   },
   "devDependencies": {
     "@types/deepmerge": "^2.2.0",
-    "@types/js-cookie": "^3.0.0",
-    "esbuild": "^0.13.13",
+    "@types/js-cookie": "^3.0.2",
+    "esbuild": "^0.15.0",
     "npm-run-all": "^4.1.5",
     "release-it": "^15.3.0",
-    "sass": "^1.43.4",
-    "typescript": "^4.4.4"
+    "sass": "^1.54.4",
+    "typescript": "^4.7.4"
   }
 }
