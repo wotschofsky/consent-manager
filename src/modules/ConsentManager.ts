@@ -33,6 +33,8 @@ interface CookieData {
   grants: GrantsStatus;
 }
 
+type EventNames = 'update' | 'grant' | 'revoke';
+
 type UpdateEventCallback = (id: string) => void;
 
 export interface ConsentManagerConfig {
@@ -145,10 +147,7 @@ export default class ConsentManager {
     this.writeCookie();
   }
 
-  public on(
-    eventName: 'update' | 'grant' | 'revoke',
-    callback: UpdateEventCallback
-  ): void {
+  public on(eventName: EventNames, callback: UpdateEventCallback): void {
     // Add empty array for event listeners if missing
     if (!(eventName in this.eventListeners)) {
       this.eventListeners[eventName] = [];
@@ -157,10 +156,7 @@ export default class ConsentManager {
     this.eventListeners[eventName].push(callback);
   }
 
-  public off(
-    eventName: 'update' | 'grant' | 'revoke',
-    callback: UpdateEventCallback
-  ): void {
+  public off(eventName: EventNames, callback: UpdateEventCallback): void {
     // Ignore if no listeners are registered for event
     if (
       !(eventName in this.eventListeners) ||
@@ -174,10 +170,7 @@ export default class ConsentManager {
     this.eventListeners[eventName].splice(callbackIndex, 1);
   }
 
-  private dispatch(
-    eventName: 'update' | 'grant' | 'revoke',
-    grant: string
-  ): void {
+  private dispatch(eventName: EventNames, grant: string): void {
     // Ignore if no listeners are registered for event
     if (!(eventName in this.eventListeners)) {
       return;
