@@ -1,24 +1,38 @@
-import { Validator } from '@cfworker/json-schema';
 import Cookie from 'js-cookie';
 import merge from 'deepmerge';
+import { isPlainObject } from 'is-plain-object';
 
-// Prepare validation of cookie data
-const cookieValidator = new Validator({
-  type: 'object',
-  properties: {
-    version: {
-      type: 'string',
-    },
-    grants: {
-      type: 'object',
-      additionalProperties: {
-        type: 'boolean',
-      },
-    },
-  },
-  required: ['version', 'grants'],
-  additionalProperties: false,
-});
+const validateCookie = (cookieValue: CookieData): boolean => {
+  if (!isPlainObject(cookieValue)) {
+    return false;
+  }
+
+  if (Object.keys(cookieValue).sort().join(',') !== 'grants,version') {
+    return false;
+  }
+
+  if (typeof cookieValue.version !== 'string') {
+    return false;
+  }
+
+  if (!isPlainObject(cookieValue.grants)) {
+    return false;
+  }
+
+  if (Object.keys(cookieValue.grants).length === 0) {
+    return false;
+  }
+
+  if (
+    !Object.values(cookieValue.grants).every(
+      (value) => typeof value === 'boolean'
+    )
+  ) {
+    return false;
+  }
+
+  return true;
+};
 
 // Setup instance of js-cookie for JSON
 const CookieJson = Cookie.withConverter({
@@ -83,7 +97,7 @@ export default class ConsentManager {
       grants[category.id] = value;
     }
 
-    if (cookieValue && cookieValidator.validate(cookieValue).valid) {
+    if (cookieValue && validateCookie(cookieValue)) {
       // Set customized status current version up-to-date cookie was found
       if (cookieValue.version === this.config.version) {
         this.isCustomized = true;
