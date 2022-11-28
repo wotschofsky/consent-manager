@@ -117,7 +117,9 @@ export default class GrantsInterface {
     const table = document.createElement('table');
     table.className = 'consent-manager--table';
 
-    for (const category of this.client.config.categories) {
+    for (const [index, category] of Object.entries(
+      this.client.config.categories
+    )) {
       const row = document.createElement('tr');
       row.className = 'consent-manager--row';
 
@@ -126,14 +128,19 @@ export default class GrantsInterface {
       const checked = category.required || status ? 'checked' : '';
       row.innerHTML =
         `<td class="consent-manager--table-toggle-col">` +
-        `  <input id="consent-manager--table-toggle-${category.id}" class="consent-manager--table-toggle" type="checkbox" ${checked} ${disabled} />` +
+        `  <input id="consent-manager--table-toggle-${index}" class="consent-manager--table-toggle" type="checkbox" ${checked} ${disabled} />` +
         `</td>` +
         `<td class="consent-manager--table-label-col">` +
-        `  <label for="consent-manager--table-toggle-${category.id}">` +
-        `    <span class="consent-manager--table-label">${category.label}</span>` +
-        `    <sub class="consent-manager--table-description">${category.description}</sub>` +
+        `  <label for="consent-manager--table-toggle-${index}">` +
+        `    <span class="consent-manager--table-label"></span>` +
+        `    <sub class="consent-manager--table-description"></sub>` +
         `  </label>` +
         `</td>`;
+      row.querySelector('consent-manager--table-label').textContent =
+        category.label;
+      row.querySelector('consent-manager--table-description').textContent =
+        category.description;
+
       if (!category.required) {
         const checkbox: HTMLInputElement = row.querySelector(
           'input[type="checkbox"]'
