@@ -6,19 +6,13 @@ export default class DOMConnector {
     client.on('update', this.updateDOM.bind(this));
   }
 
-  private selectElements() {
-    return document.querySelectorAll(
-      '[data-consent-manager]'
-    ) as NodeListOf<HTMLElement>;
-  }
-
   private isElementGranted(element: HTMLElement) {
     if (!('cmCategories' in element.dataset)) {
       console.warn('Element %d is missing cookie category!', element);
       return false;
     }
 
-    const permittingCategories = (element.dataset.cmCategories as string)
+    const permittingCategories = element.dataset.cmCategories
       .split(',')
       .map((c) => c.trim());
 
@@ -36,7 +30,9 @@ export default class DOMConnector {
   }
 
   private updateDOM() {
-    const elements = this.selectElements();
+    const elements = document.querySelectorAll<HTMLElement>(
+      '[data-consent-manager]'
+    );
 
     elements.forEach((el) => {
       if (!el.dataset.cmAttribute) {
