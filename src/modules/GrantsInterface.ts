@@ -136,9 +136,9 @@ export default class GrantsInterface {
         `    <sub class="consent-manager--table-description"></sub>` +
         `  </label>` +
         `</td>`;
-      row.querySelector('consent-manager--table-label').textContent =
+      row.querySelector('.consent-manager--table-label').textContent =
         category.label;
-      row.querySelector('consent-manager--table-description').textContent =
+      row.querySelector('.consent-manager--table-description').textContent =
         category.description;
 
       if (!category.required) {
