@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "incremental": true,
     "target": "es2017",
     "outDir": "dist/main",
     "rootDir": "src",
