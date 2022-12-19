@@ -49,7 +49,7 @@ interface CookieData {
 
 type EventNames = 'update' | 'grant' | 'revoke';
 
-type UpdateEventCallback = (id: string) => void;
+type UpdateEventCallback<G extends String> = (id: G) => void;
 
 export interface ConsentManagerConfig<G extends string> {
   version: string;
@@ -75,7 +75,7 @@ export default class ConsentManager<G extends string = string> {
   public config: ConsentManagerConfig<G>;
   public isCustomized = false;
   public grants: GrantsStatus<G>;
-  private eventListeners: Record<string, UpdateEventCallback[]> = {};
+  private eventListeners: Record<string, UpdateEventCallback<G>[]> = {};
 
   constructor(config: ConsentManagerConfig<G>) {
     this.config = merge(defaultConfig, config);
@@ -127,12 +127,12 @@ export default class ConsentManager<G extends string = string> {
     });
   }
 
-  public setGrant(id: string, status: boolean): void {
+  public setGrant(id: G, status: boolean): void {
     // Set all grants
     if (id === '*') {
       // Call recursively for all categories
       for (const key of Object.keys(this.grants)) {
-        this.setGrant(key, status);
+        this.setGrant(key as G, status);
       }
       return;
     }
@@ -161,7 +161,7 @@ export default class ConsentManager<G extends string = string> {
     this.writeCookie();
   }
 
-  public on(eventName: EventNames, callback: UpdateEventCallback): void {
+  public on(eventName: EventNames, callback: UpdateEventCallback<G>): void {
     // Add empty array for event listeners if missing
     if (!(eventName in this.eventListeners)) {
       this.eventListeners[eventName] = [];
@@ -170,7 +170,7 @@ export default class ConsentManager<G extends string = string> {
     this.eventListeners[eventName].push(callback);
   }
 
-  public off(eventName: EventNames, callback: UpdateEventCallback): void {
+  public off(eventName: EventNames, callback: UpdateEventCallback<G>): void {
     // Ignore if no listeners are registered for event
     if (
       !(eventName in this.eventListeners) ||
@@ -184,7 +184,7 @@ export default class ConsentManager<G extends string = string> {
     this.eventListeners[eventName].splice(callbackIndex, 1);
   }
 
-  private dispatch(eventName: EventNames, grant: string): void {
+  private dispatch(eventName: EventNames, grant: G): void {
     // Ignore if no listeners are registered for event
     if (!(eventName in this.eventListeners)) {
       return;
