@@ -40,23 +40,23 @@ const CookieJson = Cookie.withConverter({
   write: (value) => JSON.stringify(value),
 });
 
-type GrantsStatus = Record<string, boolean>;
+type GrantsStatus<G extends string> = Record<G, boolean>;
 
 interface CookieData {
   version: string;
-  grants: GrantsStatus;
+  grants: GrantsStatus<string>;
 }
 
 type EventNames = 'update' | 'grant' | 'revoke';
 
 type UpdateEventCallback = (id: string) => void;
 
-export interface ConsentManagerConfig {
+export interface ConsentManagerConfig<G extends string> {
   version: string;
   cookieName?: string;
   expires?: number | Date | 'session';
   categories: {
-    id: string;
+    id: G;
     label: string;
     description: string;
     required: boolean;
@@ -64,20 +64,20 @@ export interface ConsentManagerConfig {
   }[];
 }
 
-const defaultConfig: ConsentManagerConfig = {
+const defaultConfig: ConsentManagerConfig<never> = {
   version: '1',
   cookieName: 'consent-manager',
   expires: 365,
   categories: [],
 };
 
-export default class ConsentManager {
-  public config: ConsentManagerConfig;
+export default class ConsentManager<G extends string = string> {
+  public config: ConsentManagerConfig<G>;
   public isCustomized = false;
-  public grants: GrantsStatus;
+  public grants: GrantsStatus<G>;
   private eventListeners: Record<string, UpdateEventCallback[]> = {};
 
-  constructor(config: ConsentManagerConfig) {
+  constructor(config: ConsentManagerConfig<G>) {
     this.config = merge(defaultConfig, config);
 
     this.parseCookie();
@@ -90,7 +90,7 @@ export default class ConsentManager {
     ) as unknown as CookieData;
 
     // Create object with default values
-    const grants: GrantsStatus = {};
+    const grants: GrantsStatus<string> = {};
     for (const category of this.config.categories) {
       // Set grant value to default value otherwise false
       const value = (category.required || category.default) ?? false;
