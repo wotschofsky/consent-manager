@@ -127,7 +127,7 @@ export default class ConsentManager<G extends string = string> {
     });
   }
 
-  public setGrant(id: G, status: boolean): void {
+  public setGrant(id: G | '*', status: boolean): void {
     // Set all grants
     if (id === '*') {
       // Call recursively for all categories
