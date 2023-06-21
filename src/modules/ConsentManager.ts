@@ -49,7 +49,7 @@ interface CookieData {
 
 type EventNames = 'update' | 'grant' | 'revoke';
 
-type UpdateEventCallback<G extends String> = (id: G) => void;
+type UpdateEventCallback<G extends string> = (id: G) => void;
 
 export interface ConsentManagerConfig<G extends string> {
   version: string;
