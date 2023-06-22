@@ -7,7 +7,11 @@ const validateCookie = (cookieValue: CookieData): boolean => {
     return false;
   }
 
-  if (Object.keys(cookieValue).sort().join(',') !== 'grants,version') {
+  if (
+    Object.keys(cookieValue)
+      .sort((a, b) => a.localeCompare(b, 'en'))
+      .join(',') !== 'grants,version'
+  ) {
     return false;
   }
 
