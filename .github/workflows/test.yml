@@ -1,0 +1,27 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  vitest:
+    name: Vitest
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run Tests
+        run: yarn test
