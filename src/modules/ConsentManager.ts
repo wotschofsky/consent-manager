@@ -34,12 +34,6 @@ const validateCookie = (cookieValue: CookieData): boolean => {
   return true;
 };
 
-// Setup instance of js-cookie for JSON
-const CookieJson = Cookie.withConverter({
-  read: (value) => JSON.parse(value),
-  write: (value) => JSON.stringify(value),
-});
-
 type GrantsStatus<G extends string> = Record<G, boolean>;
 
 interface CookieData {
@@ -84,11 +78,6 @@ export default class ConsentManager<G extends string = string> {
   }
 
   private parseCookie(): void {
-    // Load current cookie
-    const cookieValue = CookieJson.get(
-      this.config.cookieName
-    ) as unknown as CookieData;
-
     // Create object with default values
     const grants: GrantsStatus<string> = {};
     for (const category of this.config.categories) {
@@ -96,6 +85,11 @@ export default class ConsentManager<G extends string = string> {
       const value = (category.required || category.default) ?? false;
       grants[category.id] = value;
     }
+
+    // Load current cookie
+    const cookieValue =
+      Cookie.get('consent-manager') &&
+      JSON.parse(Cookie.get('consent-manager'));
 
     if (cookieValue && validateCookie(cookieValue)) {
       // Set customized status current version up-to-date cookie was found
@@ -122,7 +116,7 @@ export default class ConsentManager<G extends string = string> {
       version: this.config.version,
       grants: this.grants,
     };
-    CookieJson.set(this.config.cookieName, cookieData, {
+    Cookie.set(this.config.cookieName, JSON.stringify(cookieData), {
       expires: this.config.expires !== 'session' ? this.config.expires : null,
     });
   }
