@@ -10,11 +10,15 @@ consent-manager allows you to only use the components you need. Anything from ju
 
 Add the script to your project through a package manager:
 
-`$ npm i consent-manager`
+`$ pnpm i consent-manager`
 
 or
 
 `$ yarn add consent-manager`
+
+or
+
+`$ npm i consent-manager`
 
 Alternatively you can also import the script found in the releases section on GitHub directly. If you choose this option you won't need to import the individual classes going forward - they will all be available to you automatically.
 
